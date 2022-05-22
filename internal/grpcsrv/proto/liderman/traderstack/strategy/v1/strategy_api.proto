@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package liderman.traderstack.strategy.v1;
+
+option csharp_namespace = "Liderman.Traderstack.Strategy.V1";
+option go_package = "strategyv1";
+option java_multiple_files = true;
+option java_outer_classname = "StrategyApiProto";
+option java_package = "com.liderman.traderstack.strategy.v1";
+option objc_class_prefix = "LTS";
+option php_namespace = "Liderman\\Traderstack\\Strategy\\V1";
+
+import "liderman/traderstack/strategy/v1/strategy.proto";
+
+// API управления стратегиями.
+service StrategyAPI {
+  // Создаёт новую стратегию.
+  rpc Create(CreateRequest) returns (CreateResponse);
+  // Возвращает стратегию.
+  rpc Get(GetRequest) returns (GetResponse);
+  // Возвращает список всех стратегий.
+  rpc GetAll(GetAllRequest) returns (GetAllResponse);
+  // Обновляет стратегию.
+  rpc Update(UpdateRequest) returns (UpdateResponse);
+  // Удаляет стратегию.
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+  // Возвращает логи запуска стратегии.
+  rpc GetLogs(GetLogsRequest) returns (GetLogsResponse);
+}
+
+message CreateRequest { }
+
+message CreateResponse {
+  Strategy strategy = 1;
+}
+
+message GetRequest {
+  string id = 1;
+}
+
+message GetResponse {
+  Strategy strategy = 1;
+}
+
+message GetAllRequest { }
+
+message GetAllResponse {
+  repeated Strategy strategies = 1;
+}
+
+message UpdateRequest {
+  Strategy strategy = 1;
+}
+
+message UpdateResponse { }
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponse { }
+
+message GetLogsRequest {
+  string id = 1;
+}
+
+message GetLogsResponse {
+  repeated StrategyLog logs = 1;
+}
+
+

@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package liderman.traderstack.stack.v1;
+
+option csharp_namespace = "Liderman.Traderstack.Stack.V1";
+option go_package = "stackv1";
+option java_multiple_files = true;
+option java_outer_classname = "StackApiProto";
+option java_package = "com.liderman.traderstack.stack.v1";
+option objc_class_prefix = "LTS";
+option php_namespace = "Liderman\\Traderstack\\Stack\\V1";
+
+import "liderman/traderstack/stack/v1/stack.proto";
+import "google/protobuf/timestamp.proto";
+
+// API управления стеком.
+service StackAPI {
+  // Создаёт новый стек.
+  rpc Create(CreateRequest) returns (CreateResponse);
+  // Обновляет стек.
+  rpc Update(UpdateRequest) returns (UpdateResponse);
+  // Удаляет стек.
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+  // Возвращает стек.
+  rpc Get(GetRequest) returns (GetResponse);
+  // Возвращает все стеки.
+  rpc GetAll(GetAllRequest) returns (GetAllResponse);
+  // Тестирует стек.
+  rpc Test(TestRequest) returns (TestResponse);
+  // Возвращает список функций.
+  rpc FuncList(FuncListRequest) returns (FuncListResponse);
+  // Возвращает список переменных для аргумента функции.
+  rpc FuncArgumentVarList(FuncArgumentVarListRequest) returns (FuncArgumentVarListResponse);
+}
+
+message CreateRequest {
+  string name = 1;
+}
+
+message CreateResponse {
+  Stack stack = 1;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string name = 2;
+  repeated SetItem items = 3;
+}
+
+message UpdateResponse {
+  Stack stack = 1;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message DeleteResponse { }
+
+message GetRequest {
+  string id = 1;
+}
+
+message GetResponse {
+  Stack stack = 1;
+}
+
+message GetAllRequest { }
+
+message GetAllResponse {
+  repeated Stack stacks = 1;
+}
+
+message TestRequest {
+  string id = 1;
+  google.protobuf.Timestamp time = 2;
+  string account_id = 3;
+}
+
+message TestResponse {
+  repeated TestItemResult result = 1;
+}
+
+message FuncListRequest { }
+
+message FuncListResponse {
+  repeated StackFunc func = 1;
+}
+
+
+message FuncArgumentVarListRequest {
+  string stack_id = 1;
+  string item_variable = 2;
+  string argument_id = 3;
+
+}
+
+message FuncArgumentVarListResponse {
+  repeated string variables = 1;
+}
+

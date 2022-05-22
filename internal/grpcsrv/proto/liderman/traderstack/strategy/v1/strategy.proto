@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package liderman.traderstack.strategy.v1;
+
+option csharp_namespace = "Liderman.Traderstack.Strategy.V1";
+option go_package = "strategyv1";
+option java_multiple_files = true;
+option java_outer_classname = "StrategyProto";
+option java_package = "com.liderman.traderstack.strategy.v1";
+option objc_class_prefix = "LTS";
+option php_namespace = "Liderman\\Traderstack\\Strategy\\V1";
+
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
+// Стратегия.
+message Strategy {
+  string id = 1;
+  string stack_id = 2;
+  string account_id = 3;
+  google.protobuf.Duration run_interval_duration = 4;
+  bool enabled = 5;
+}
+
+// Лог.
+message StrategyLog {
+  string log_type = 1;
+  string message = 2;
+  google.protobuf.Timestamp time = 3;
+}

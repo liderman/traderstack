@@ -1,0 +1,18 @@
+protoc:
+  version: 3.8.0
+lint:
+  group: uber2
+generate:
+  go_options:
+    import_path: github.com/liderman/traderstack/internal/grpcsrv/proto
+  plugins:
+    - name: go
+      type: go
+      flags: plugins=grpc
+      output: ../gen/go
+    - name: js
+      flags: import_style=commonjs
+      output: ../gen/js
+    - name: grpc-web
+      flags: import_style=commonjs,mode=grpcwebtext
+      output: ../gen/js

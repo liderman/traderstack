@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package liderman.traderstack.info.v1;
+
+option csharp_namespace = "Liderman.Traderstack.Info.V1";
+option go_package = "infov1";
+option java_multiple_files = true;
+option java_outer_classname = "InfoProto";
+option java_package = "com.liderman.traderstack.info.v1";
+option objc_class_prefix = "LTI";
+option php_namespace = "Liderman\\Traderstack\\Info\\V1";
+
+// Финансовый инструмент.
+message Instrument {
+  string figi = 1;
+  string ticker = 2;
+  string isin = 3;
+  int32 lot = 4;
+  string currency = 5;
+  string name = 6;
+  string exchange = 7;
+}
+
+// Аккаунт.
+message Account {
+  string id = 1;
+  string name = 2;
+}
+
+// Деньги.
+message Money {
+  string currency = 1;
+  string value = 2;
+}

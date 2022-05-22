@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package liderman.traderstack.stack.v1;
+
+option csharp_namespace = "Liderman.Traderstack.Stack.V1";
+option go_package = "stackv1";
+option java_multiple_files = true;
+option java_outer_classname = "StackProto";
+option java_package = "com.liderman.traderstack.stack.v1";
+option objc_class_prefix = "LTS";
+option php_namespace = "Liderman\\Traderstack\\Stack\\V1";
+
+import "google/protobuf/timestamp.proto";
+
+// Стек операций.
+message Stack {
+  string id = 1;
+  string name = 2;
+  repeated Item items = 3;
+}
+
+// Позиция в стеке.
+message Item {
+  string variable = 1;
+  StackFunc stack_func = 2;
+}
+
+// Функция стека.
+message StackFunc {
+  string name = 1;
+  repeated Argument arguments = 2;
+  string base_type = 3;
+}
+
+// Аргумент функции.
+message Argument {
+  string id = 1;
+  string name = 2;
+  string desc = 3;
+  string base_type = 4;
+  string extended_type = 5;
+  bool required = 6;
+
+  oneof value {
+    Value input = 7;
+    Variable variable = 8;
+  }
+}
+
+// Значение переменной.
+message Value {
+  oneof val {
+    string string = 1;
+    int64 integer = 2;
+    string decimal = 3;
+    bool boolean = 4;
+    google.protobuf.Timestamp time = 5;
+  }
+}
+
+// Значение имени переменной.
+message Variable {
+  string name = 1;
+}
+
+// Установка позиции в стеке.
+message SetItem {
+  string variable = 1;
+  SetStackFunc stack_func = 2;
+}
+
+// Установка функции стека.
+message SetStackFunc {
+  string name = 1;
+  repeated SetArgument arguments = 2;
+}
+
+// Установка аргумента функции.
+message SetArgument {
+  string id = 1;
+  oneof value {
+    Value input = 2;
+    Variable variable = 3;
+  }
+}
+
+// Результат тестирования позиции стека.
+message TestItemResult {
+  string variable = 1;
+  Value result = 2;
+  string base_type = 3;
+  string error = 4;
+}
