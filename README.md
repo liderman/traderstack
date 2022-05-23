@@ -116,7 +116,8 @@
 * данные нигде не сохраняются. После перезапуска приложения всё будет забыто
 
 ## Для разработчиков
-Перегенерация gRPC-клиентов на основе proto-фалов:
+### Полезные утилиты и настройка окружения
+Перегенерация gRPC-клиентов Tinkoff на основе proto-фалов:
 ```shell
 docker run --rm -v $PWD/internal/grpc:/data namely/protoc-all \
 -i /data/proto/tinkoff/investapi -d /data/proto/tinkoff/investapi -o /data/gen/tinkoff/investapi -l go
@@ -129,6 +130,10 @@ cp -R ./internal/grpcsrv/gen/js/ ./web/grpc/gen/js/
 Запуск линтера .proto фалов:
 ```bash
 docker run --rm -v "$(pwd)/internal/grpcsrv:/work" uber/prototool:latest prototool lint
+```
+Перегенерация моков:
+```bash
+go generate ./...
 ```
 
 Запуск в режиме разработки:
@@ -147,6 +152,29 @@ cd ci/dev
 docker-compose up
 ```
 Dev URL: http://127.0.0.1:8080/
+
+### Как реализовать новую функцию?
+1. в директории `internal/stackfuncs` создайте файл функции реализующий интерфейс `StackFuncRun`
+2. зарегистрируйте функцию в `StackFuncRepository` (`cmd/traderstack/main.go`)
+    
+    Например, так:
+    ```go
+    sfr := engine.NewStackFuncRepository()
+    sfr.Register(stackfuncs.NewMyFunc())
+    ```
+Все функции выполняющие действия на бирже должны иметь префикс `Action` в имени
+
+## Testing
+Unit-tests:
+```bash
+go test -v -race ./...
+```
+
+## CONTRIBUTE
+* write code
+* run `go fmt ./...`
+* run all linters and tests (see above)
+* create a PR describing the changes
 
 ## LICENSE
 Apache License 2.0

@@ -66,7 +66,7 @@ func (a *ActionSellMarket) Run(options *engine.Options, now time.Time, accountId
 
 	lastPrice, err := a.md.GetLastPrice(figi)
 	if err != nil {
-		return nil, fmt.Errorf("ошибка получения последней цены: %s", err)
+		return nil, fmt.Errorf("ошибка получения последней цены: %w", err)
 	}
 
 	fnc := a.api.PostOrder

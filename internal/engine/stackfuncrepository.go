@@ -33,7 +33,7 @@ func (s *StackFuncRepository) GetAll() []StackFuncRun {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
-	var ret []StackFuncRun
+	ret := make([]StackFuncRun, 0, len(s.repo))
 	for _, v := range s.repo {
 		ret = append(ret, v)
 	}
@@ -46,9 +46,10 @@ func (s *StackFuncRepository) GetDeclaration(name string) *StackFunc {
 }
 
 func (s *StackFuncRepository) GetAllDeclaration() []*StackFunc {
-	var ret []*StackFunc
+	funcs := s.GetAll()
+	ret := make([]*StackFunc, 0, len(funcs))
 
-	for _, v := range s.GetAll() {
+	for _, v := range funcs {
 		ret = append(ret, s.funcToDeclaration(v))
 	}
 

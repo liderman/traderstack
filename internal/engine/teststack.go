@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// TestStack Движок тестирования стека.
 type TestStack struct {
 	sm  *StackManager
 	sfr *StackFuncRepository

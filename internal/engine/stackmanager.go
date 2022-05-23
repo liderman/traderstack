@@ -5,6 +5,7 @@ import (
 	"sync"
 )
 
+// StackManager Менеджер управления стеками.
 type StackManager struct {
 	sfr  *StackFuncRepository
 	data map[string]*Stack
@@ -37,7 +38,7 @@ func (s *StackManager) Update(id, name string, setItems []*SetStackItem) (*Stack
 	}
 
 	stack.Name = name
-	var items []*StackItem
+	items := make([]*StackItem, 0, len(setItems))
 	for _, v := range setItems {
 		fnc, err := s.mapStackFunc(v.StackFunc)
 		if err != nil {

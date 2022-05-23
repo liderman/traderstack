@@ -10,6 +10,7 @@ import (
 	"time"
 )
 
+// StrategyEngine Движок исполнения стратегий.
 type StrategyEngine struct {
 	sm     *StackManager
 	sfr    *StackFuncRepository

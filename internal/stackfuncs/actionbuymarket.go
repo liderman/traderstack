@@ -62,7 +62,7 @@ func (a *ActionBuyMarket) Run(options *engine.Options, now time.Time, accountId 
 
 	lastPrice, err := a.md.GetLastPrice(figi)
 	if err != nil {
-		return nil, fmt.Errorf("ошибка получения последней цены: %s", err)
+		return nil, fmt.Errorf("ошибка получения последней цены: %w", err)
 	}
 
 	fnc := a.api.PostOrder
@@ -71,7 +71,7 @@ func (a *ActionBuyMarket) Run(options *engine.Options, now time.Time, accountId 
 	}
 	resp, err := fnc(figi, lots, lastPrice.Price, domain.OrderDirectionBuy, accountId, domain.OrderTypeMarket)
 	if err != nil {
-		return nil, fmt.Errorf("ошибка создания заказа: %s", err)
+		return nil, fmt.Errorf("ошибка создания заказа: %w", err)
 	}
 
 	fmt.Printf("!!! Buy %s with %d lots and price %s\n", resp.Figi, resp.LotsRequested, lastPrice.Price.String())

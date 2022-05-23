@@ -4,6 +4,7 @@ import (
 	"github.com/google/uuid"
 )
 
+// Stack Стек операций.
 type Stack struct {
 	Id    string
 	Name  string

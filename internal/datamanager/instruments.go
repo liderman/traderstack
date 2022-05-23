@@ -90,7 +90,8 @@ func (i *Instruments) SearchShares(text string, limit int) ([]*domain.Share, err
 		}
 	}
 
-	ret := append(rating1, rating2...)
+	ret := rating1
+	ret = append(ret, rating2...)
 	ret = append(ret, rating3...)
 	return ret, nil
 }

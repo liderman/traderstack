@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// StackFuncRun Функция элемента стека для выполнения.
 type StackFuncRun interface {
 	Name() string
 	BaseType() string
