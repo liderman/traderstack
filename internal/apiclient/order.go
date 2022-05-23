@@ -3,11 +3,11 @@ package apiclient
 import (
 	"context"
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/liderman/traderstack/internal/domain"
 	"github.com/liderman/traderstack/internal/grpc/gen/tinkoff/investapi"
 	"github.com/liderman/traderstack/internal/grpc/mapper"
 	"github.com/shopspring/decimal"
-	"time"
 )
 
 func (a *RealClient) PostOrder(figi string, lots int64, price decimal.Decimal, direction domain.OrderDirection, accountId string, orderType domain.OrderType) (*domain.PostOrderResponse, error) {
@@ -18,7 +18,7 @@ func (a *RealClient) PostOrder(figi string, lots int64, price decimal.Decimal, d
 		Direction: mapper.MapToOrderDirection(direction),
 		AccountId: accountId,
 		OrderType: mapper.MapToOrderType(orderType),
-		OrderId:   figi + time.Now().String(),
+		OrderId:   uuid.New().String(),
 	})
 	if err != nil {
 		return nil, fmt.Errorf("error api PostOrder: %w", err)

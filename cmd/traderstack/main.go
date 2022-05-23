@@ -124,7 +124,7 @@ func main() {
 	sm := engine.NewStackManager(sfr)
 
 	// Engine
-	sEngine := engine.NewStrategyEngine(sm, sfr)
+	sEngine := engine.NewStrategyEngine(sm, sfr, logger)
 	go func() {
 		logger.Info("Running StrategyEngine")
 		sEngine.Run()

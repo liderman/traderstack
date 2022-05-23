@@ -5,20 +5,23 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/liderman/traderstack/internal/domain"
+	"go.uber.org/zap"
 	"strings"
 	"time"
 )
 
 type StrategyEngine struct {
-	sm   *StackManager
-	sfr  *StackFuncRepository
-	data []*StrategyContext
+	sm     *StackManager
+	sfr    *StackFuncRepository
+	logger *zap.Logger
+	data   []*StrategyContext
 }
 
-func NewStrategyEngine(sm *StackManager, sfr *StackFuncRepository) *StrategyEngine {
+func NewStrategyEngine(sm *StackManager, sfr *StackFuncRepository, logger *zap.Logger) *StrategyEngine {
 	return &StrategyEngine{
-		sm:  sm,
-		sfr: sfr,
+		sm:     sm,
+		sfr:    sfr,
+		logger: logger,
 	}
 }
 
@@ -140,16 +143,18 @@ func (s *StrategyEngine) runStrategy(strategy *StrategyContext, now time.Time) {
 	}()
 
 	strategy.WriteStartLog()
-	fmt.Printf("runStrategy\n")
+	s.logger.Info("Run strategy", zap.String("strategy", strategy.Strategy.Id))
 
 	stack := s.sm.Get(strategy.Strategy.StackId)
 	if stack == nil {
+		s.logger.Warn("Strategy is not found", zap.String("strategy", strategy.Strategy.Id))
 		strategy.WriteErrorLog(
 			fmt.Sprintf("Стек '%s' не найден", strategy.Strategy.StackId),
 		)
 		return
 	}
 
+	s.runStack(stack, strategy)
 }
 
 func (s *StrategyEngine) runStack(stack *Stack, ctx *StrategyContext) {
