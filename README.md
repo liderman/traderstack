@@ -101,8 +101,14 @@
 * `String(value string) -> string` - устанавливает и возвращает переменную string
 
 ### Условия
-* `>=(left numeric, right numeric) -> booland` - условие, что left >= right
-* `<=(left numeric, right numeric) -> booland` - условие, что left <= right
+* `>=(left numeric, right numeric) -> boolean` - условие, что left >= right
+* `<=(left numeric, right numeric) -> boolean` - условие, что left <= right
+
+## Технологии
+* backend - golang 1.18 (взаимодействует с брокером и предоставляет API управления стратегиями для frontend)
+* frontend - nodejs (v16.15.0) - сборка, JavaScript (Vue, Vuetify) - UI для браузера
+* транспорт backend<-->frontend - gRPC Web (Envoy proxy)
+* контейнеризация - Docker. Для разработки - Docker compose
 
 ## Ограничения
 * автор не несёт ответственности за работу TraderStack и возможные убытки. Все действия вы делаете на свой страх и риск
