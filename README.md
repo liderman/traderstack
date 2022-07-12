@@ -107,8 +107,8 @@
 ## Технологии
 * backend - golang 1.18 (взаимодействует с брокером и предоставляет API управления стратегиями для frontend)
 * frontend - nodejs (v16.15.0) - сборка, JavaScript (Vue, Vuetify) - UI для браузера
-* транспорт backend<-->frontend - gRPC Web (Envoy proxy)
-* контейнеризация - Docker. Для разработки - Docker compose
+* транспорт backend<-->frontend - gRPC Web
+* контейнеризация - Docker
 
 ## Ограничения
 * автор не несёт ответственности за работу TraderStack и возможные убытки. Все действия вы делаете на свой страх и риск
@@ -140,16 +140,12 @@ go generate ./...
 ```bash
 cd cmd/traderstack
 go build
-./traderstack
+./traderstack --use-dev-proxy
 ```
 ```bash
 cd web
 yarn
 yarn dev
-```
-```bash
-cd ci/dev
-docker-compose up
 ```
 Dev URL: http://127.0.0.1:8080/
 

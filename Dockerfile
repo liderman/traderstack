@@ -5,7 +5,7 @@ WORKDIR /build
 COPY . .
 
 RUN cd cmd/traderstack && \
-    go build
+    CGO_ENABLED=0 go build
 
 FROM node:16.15.0-alpine as jsbuilder
 
@@ -14,20 +14,17 @@ WORKDIR /build
 COPY web web
 
 RUN cd web && \
+    yarn && \
+    yarn build && \
     yarn generate
 
-FROM envoyproxy/envoy-alpine:v1.10.0
+FROM alpine:3.16.0
 
 WORKDIR /var/www/traderstack
 
-COPY --from=gobuilder /build/cmd/traderstack/traderstack /var/www/traderstack/traderstack
-COPY --from=jsbuilder /build/web /var/www/traderstack/web
-COPY ci/scripts /var/www/traderstack/scripts
+COPY --from=gobuilder /build/cmd/traderstack/traderstack /usr/local/bin/traderstack
+COPY --from=jsbuilder /build/web/dist /var/www/traderstack/static
 
-RUN apk update && \
-    apk add --no-cache nodejs yarn npm bash && \
-    npm install -g n && \
-    n 16.15.0 && \
-    chmod +x /var/www/traderstack/scripts/start.sh
+ENV TS_STATIC_FILES_DIR /var/www/traderstack/static
 
-ENTRYPOINT /var/www/traderstack/scripts/start.sh
+CMD ["traderstack"]
