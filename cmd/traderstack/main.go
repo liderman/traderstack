@@ -6,6 +6,7 @@ import (
 	"fmt"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
+	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"github.com/jessevdk/go-flags"
 	"github.com/liderman/traderstack/internal/apiclient"
 	"github.com/liderman/traderstack/internal/datamanager"
@@ -23,8 +24,11 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/keepalive"
 	"google.golang.org/grpc/reflection"
-	"net"
+	"net/http"
+	"net/http/httputil"
+	"net/url"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -133,12 +137,6 @@ func main() {
 	stackSrv := grpcsrv.NewStackServer(sm, sfr, engine.NewTestStack(sm, sfr))
 	infoSrv := grpcsrv.NewInfoServer(insManager, realApi)
 	engineSrv := grpcsrv.NewStrategyServer(sEngine)
-	logger.Info("Starting gRPC server", zap.String("listen", cfg.ListenGRPC))
-	srvListen, err := net.Listen("tcp", cfg.ListenGRPC)
-	if err != nil {
-		logger.Fatal("Failed to listen GRPC server", zap.Error(err))
-		return
-	}
 
 	recoverFromPanicHandler := func(p interface{}) error {
 		err := fmt.Errorf("recovered from panic: %s", p)
@@ -166,9 +164,48 @@ func main() {
 	strategyv1.RegisterStrategyAPIServer(s, engineSrv)
 	reflection.Register(s)
 
-	err = s.Serve(srvListen)
+	wrappedGrpc := grpcweb.WrapServer(s)
+	httpServer := http.Server{
+		Addr: cfg.ListenHTTP,
+	}
+	httpServer.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if wrappedGrpc.IsGrpcWebRequest(r) {
+			r.URL.Path = strings.TrimPrefix(r.URL.Path, "/rpc")
+			wrappedGrpc.ServeHTTP(w, r)
+			return
+		}
+
+		if cfg.UseDevProxy {
+			proxyUrl, _ := url.Parse(r.URL.String())
+			proxyUrl.Host = cfg.DevProxyHost
+			proxyUrl.Scheme = "http"
+			logger.Info("Proxy", zap.String("url", proxyUrl.String()))
+			proxy := httputil.NewSingleHostReverseProxy(proxyUrl)
+			proxy.Director = func(dr *http.Request) {
+				dr.Host = cfg.DevProxyHost
+			}
+
+			proxy.ServeHTTP(w, r)
+			return
+		}
+
+		http.DefaultServeMux.ServeHTTP(w, r)
+	})
+
+	fs := http.FileServer(http.Dir(cfg.StaticFilesDir))
+	http.Handle("/", fs)
+
+	logger.Info(
+		"Starting HTTP server",
+		zap.String("listen", cfg.ListenHTTP),
+		zap.String("static-files-dir", cfg.StaticFilesDir),
+	)
+	if cfg.UseDevProxy {
+		logger.Warn("Enabled dev proxy for static files", zap.String("host", cfg.DevProxyHost))
+	}
+	err = httpServer.ListenAndServe()
 	if err != nil {
-		logger.Fatal("Stopped gRPC server with error", zap.Error(err))
+		logger.Fatal("Stopped HTTP server with error", zap.Error(err))
 	}
 }
 
