@@ -123,8 +123,17 @@ func main() {
 	sfr.Register(stackfuncs.NewGe())
 	sfr.Register(stackfuncs.NewInteger())
 	sfr.Register(stackfuncs.NewLe())
+	sfr.Register(stackfuncs.NewEq())
+	sfr.Register(stackfuncs.NewNe())
 	sfr.Register(stackfuncs.NewRsi(marketManager))
 	sfr.Register(stackfuncs.NewString())
+	sfr.Register(stackfuncs.NewSub())
+	sfr.Register(stackfuncs.NewAdd())
+	sfr.Register(stackfuncs.NewMul())
+	sfr.Register(stackfuncs.NewDiv())
+	sfr.Register(stackfuncs.NewAbs())
+	sfr.Register(stackfuncs.NewMod())
+	sfr.Register(stackfuncs.NewRound())
 	sm := engine.NewStackManager(sfr)
 
 	// Engine
