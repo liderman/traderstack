@@ -23,7 +23,7 @@ func TestAbs_Run(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			args := fnc.Arguments()
-			args[0].Value = &tt.value
+			args[0].Value = tt.value
 
 			opts := engine.NewOptions(args, map[string]interface{}{})
 			resp, err := fnc.Run(opts, time.Now(), "", false)

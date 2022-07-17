@@ -17,7 +17,7 @@ func (s *String) Name() string {
 }
 
 func (s *String) BaseType() string {
-	return "string"
+	return engine.BaseTypeString
 }
 
 func (s *String) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {

@@ -24,7 +24,7 @@ func (r *Rsi) Name() string {
 }
 
 func (r *Rsi) BaseType() string {
-	return "decimal"
+	return engine.BaseTypeDecimal
 }
 
 func (r *Rsi) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {
@@ -44,7 +44,7 @@ func (r *Rsi) Run(options *engine.Options, now time.Time, accountId string, isTe
 	}
 
 	rsi := algofunc.CalcRsi(domain.HistoricCandleToSliceClose(data))
-	return &rsi, nil
+	return rsi, nil
 }
 
 func (r *Rsi) Arguments() []*engine.Argument {

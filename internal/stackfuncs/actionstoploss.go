@@ -71,7 +71,7 @@ func (a *ActionStopLoss) Run(options *engine.Options, now time.Time, accountId s
 
 	expectedYield := inPortfolio.ExpectedYield.Abs()
 
-	if !expectedYield.GreaterThanOrEqual(*percent) {
+	if !expectedYield.GreaterThanOrEqual(percent) {
 		return false, nil
 	}
 

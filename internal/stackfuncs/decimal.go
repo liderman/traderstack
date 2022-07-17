@@ -18,7 +18,7 @@ func (b *Decimal) Name() string {
 }
 
 func (b *Decimal) BaseType() string {
-	return "decimal"
+	return engine.BaseTypeDecimal
 }
 
 func (b *Decimal) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {
@@ -34,7 +34,7 @@ func (b *Decimal) Arguments() []*engine.Argument {
 			BaseType:     "decimal",
 			ExtendedType: "",
 			Required:     true,
-			Value:        &decimal.Zero,
+			Value:        decimal.Zero,
 		},
 	}
 }

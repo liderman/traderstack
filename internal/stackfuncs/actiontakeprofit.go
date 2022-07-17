@@ -65,7 +65,7 @@ func (a *ActionTakeProfit) Run(options *engine.Options, now time.Time, accountId
 		return false, nil
 	}
 
-	if !inPortfolio.ExpectedYield.GreaterThanOrEqual(*percent) {
+	if !inPortfolio.ExpectedYield.GreaterThanOrEqual(percent) {
 		return false, nil
 	}
 

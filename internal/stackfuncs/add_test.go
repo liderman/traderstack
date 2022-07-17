@@ -24,8 +24,8 @@ func TestAdd_Run(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			args := fnc.Arguments()
-			args[0].Value = &tt.a
-			args[1].Value = &tt.b
+			args[0].Value = tt.a
+			args[1].Value = tt.b
 
 			opts := engine.NewOptions(args, map[string]interface{}{})
 			resp, err := fnc.Run(opts, time.Now(), "", false)
