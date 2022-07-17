@@ -1,8 +1,5 @@
 name: golangci-lint
-on:
-  push:
-  pull_request:
-  workflow_dispatch:
+on: [push, pull_request]
 jobs:
   golangci:
     strategy:
@@ -11,11 +8,13 @@ jobs:
     name: lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Set up Go
+        uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go-version }}
-      - run: go mod vendor
+        run: go mod vendor
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
