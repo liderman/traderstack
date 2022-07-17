@@ -17,7 +17,7 @@ func (l *Sub) Name() string {
 }
 
 func (l *Sub) BaseType() string {
-	return engine.BaseTypeNumeric
+	return engine.BaseTypeDecimal
 }
 
 func (l *Sub) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {
@@ -30,7 +30,7 @@ func (l *Sub) Run(options *engine.Options, now time.Time, accountId string, isTe
 		return nil, err
 	}
 
-	return a.Sub(*b), nil
+	return a.Sub(b), nil
 }
 
 func (l *Sub) Arguments() []*engine.Argument {

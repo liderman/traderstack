@@ -112,7 +112,7 @@ func (t *ToProtobufMapper) MapValue(in interface{}) *stackv1.Value {
 		ret.Val = &stackv1.Value_Boolean{
 			Boolean: v,
 		}
-	case *decimal.Decimal:
+	case decimal.Decimal:
 		ret.Val = &stackv1.Value_Decimal{
 			Decimal: t.MapDecimal(v),
 		}
@@ -127,7 +127,7 @@ func (t *ToProtobufMapper) MapValue(in interface{}) *stackv1.Value {
 	return ret
 }
 
-func (t *ToProtobufMapper) MapDecimal(in *decimal.Decimal) string {
+func (t *ToProtobufMapper) MapDecimal(in decimal.Decimal) string {
 	return in.String()
 }
 

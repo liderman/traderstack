@@ -17,7 +17,7 @@ func (l *Mod) Name() string {
 }
 
 func (l *Mod) BaseType() string {
-	return engine.BaseTypeNumeric
+	return engine.BaseTypeDecimal
 }
 
 func (l *Mod) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {
@@ -30,7 +30,7 @@ func (l *Mod) Run(options *engine.Options, now time.Time, accountId string, isTe
 		return nil, err
 	}
 
-	return a.Mod(*b), nil
+	return a.Mod(b), nil
 }
 
 func (l *Mod) Arguments() []*engine.Argument {

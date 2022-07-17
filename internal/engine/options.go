@@ -84,32 +84,31 @@ func (o *Options) GetBoolean(key string) (bool, error) {
 	return ret, nil
 }
 
-func (o *Options) GetDecimal(key string) (*decimal.Decimal, error) {
+func (o *Options) GetDecimal(key string) (decimal.Decimal, error) {
 	v, err := o.get(key)
 	if err != nil {
-		return &decimal.Zero, err
+		return decimal.Zero, err
 	}
 
-	ret, ok := v.(*decimal.Decimal)
+	ret, ok := v.(decimal.Decimal)
 	if !ok {
-		return &decimal.Zero, ErrOptionBadType
+		return decimal.Zero, ErrOptionBadType
 	}
 	return ret, nil
 }
 
-func (o *Options) GetNumericDecimal(key string) (*decimal.Decimal, error) {
+func (o *Options) GetNumericDecimal(key string) (decimal.Decimal, error) {
 	v, err := o.get(key)
 	if err != nil {
-		return &decimal.Zero, err
+		return decimal.Zero, err
 	}
 
 	switch val := v.(type) {
-	case *decimal.Decimal:
+	case decimal.Decimal:
 		return val, nil
 	case int64:
-		ret := decimal.NewFromInt(val)
-		return &ret, nil
+		return decimal.NewFromInt(val), nil
 	}
 
-	return &decimal.Zero, ErrOptionBadType
+	return decimal.Zero, ErrOptionBadType
 }

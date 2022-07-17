@@ -22,7 +22,7 @@ func (a *PortfolioLots) Name() string {
 }
 
 func (a *PortfolioLots) BaseType() string {
-	return "integer"
+	return engine.BaseTypeInteger
 }
 
 func (a *PortfolioLots) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {

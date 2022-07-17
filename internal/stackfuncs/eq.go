@@ -30,7 +30,7 @@ func (l *Eq) Run(options *engine.Options, now time.Time, accountId string, isTes
 		return nil, err
 	}
 
-	return a.Equal(*b), nil
+	return a.Equal(b), nil
 }
 
 func (l *Eq) Arguments() []*engine.Argument {

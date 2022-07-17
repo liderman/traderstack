@@ -30,7 +30,7 @@ func (g *Ge) Run(options *engine.Options, now time.Time, accountId string, isTes
 		return nil, err
 	}
 
-	return a.GreaterThanOrEqual(*b), nil
+	return a.GreaterThanOrEqual(b), nil
 }
 
 func (g *Ge) Arguments() []*engine.Argument {

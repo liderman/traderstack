@@ -17,7 +17,7 @@ func (l *Round) Name() string {
 }
 
 func (l *Round) BaseType() string {
-	return engine.BaseTypeNumeric
+	return engine.BaseTypeDecimal
 }
 
 func (l *Round) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {

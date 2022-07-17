@@ -77,17 +77,17 @@ func (t *ToDomainMapper) MapValue(in *stackv1.Value) interface{} {
 	return nil
 }
 
-func (t *ToDomainMapper) MapDecimal(in string) *decimal.Decimal {
+func (t *ToDomainMapper) MapDecimal(in string) decimal.Decimal {
 	if in == "" {
-		return &decimal.Zero
+		return decimal.Zero
 	}
 
 	ret, err := decimal.NewFromString(in)
 	if err != nil {
-		return &decimal.Zero
+		return decimal.Zero
 	}
 
-	return &ret
+	return ret
 }
 
 func (t *ToDomainMapper) MapVariable(in *stackv1.Variable) *baseoption.Variable {

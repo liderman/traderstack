@@ -16,14 +16,14 @@ func TestDecimal_Run(t *testing.T) {
 	result, err := fnc.Run(opts, time.Now(), "", false)
 
 	assert.Error(t, err)
-	assert.Equal(t, &decimal.Zero, result)
+	assert.Equal(t, decimal.Zero, result)
 
 	args = fnc.Arguments()
 	val := decimal.NewFromInt(100)
-	args[0].Value = &val
+	args[0].Value = val
 	opts = engine.NewOptions(args, map[string]interface{}{})
 	result, err = fnc.Run(opts, time.Now(), "", false)
 
 	assert.NoError(t, err)
-	assert.Equal(t, &val, result)
+	assert.Equal(t, val, result)
 }
