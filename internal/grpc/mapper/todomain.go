@@ -7,7 +7,7 @@ import (
 )
 
 func MapFromHistoricCandles(in []*investapi.HistoricCandle) []*domain.HistoricCandle {
-	var ret []*domain.HistoricCandle
+	ret := make([]*domain.HistoricCandle, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, MapFromHistoricCandle(v))
 	}
@@ -41,7 +41,7 @@ func MapFromQuotation(in *investapi.Quotation) decimal.Decimal {
 }
 
 func MapFromShares(in []*investapi.Share) []*domain.Share {
-	var ret []*domain.Share
+	ret := make([]*domain.Share, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, MapFromShare(v))
 	}
@@ -145,7 +145,7 @@ func MapFromPortfolioPosition(in *investapi.PortfolioPosition) *domain.Portfolio
 }
 
 func MapFromPortfolioPositions(in []*investapi.PortfolioPosition) []*domain.PortfolioPosition {
-	var ret []*domain.PortfolioPosition
+	ret := make([]*domain.PortfolioPosition, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, MapFromPortfolioPosition(v))
 	}
@@ -202,7 +202,7 @@ func MapFromMoneyValue(in *investapi.MoneyValue) *domain.MoneyValue {
 }
 
 func MapFromMoneyValues(in []*investapi.MoneyValue) []*domain.MoneyValue {
-	var ret []*domain.MoneyValue
+	ret := make([]*domain.MoneyValue, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, MapFromMoneyValue(v))
 	}
@@ -211,7 +211,7 @@ func MapFromMoneyValues(in []*investapi.MoneyValue) []*domain.MoneyValue {
 }
 
 func MapFromLastPrices(in []*investapi.LastPrice) []*domain.LastPrice {
-	var ret []*domain.LastPrice
+	ret := make([]*domain.LastPrice, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, MapFromLastPrice(v))
 	}
@@ -228,7 +228,7 @@ func MapFromLastPrice(in *investapi.LastPrice) *domain.LastPrice {
 }
 
 func MapFromAccounts(in []*investapi.Account) []*domain.Account {
-	var ret []*domain.Account
+	ret := make([]*domain.Account, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, MapFromAccount(v))
 	}
@@ -245,7 +245,7 @@ func MapFromPositionsResponse(in *investapi.PositionsResponse) *domain.Positions
 }
 
 func MapFromPositionsSecuritiesList(in []*investapi.PositionsSecurities) []*domain.PositionsSecurities {
-	var ret []*domain.PositionsSecurities
+	ret := make([]*domain.PositionsSecurities, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, MapFromPositionsSecurities(v))
 	}
@@ -272,7 +272,7 @@ func MapFromAccount(in *investapi.Account) *domain.Account {
 }
 
 func MapFromOrderStates(in []*investapi.OrderState) []*domain.OrderState {
-	var ret []*domain.OrderState
+	ret := make([]*domain.OrderState, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, MapFromOrderState(v))
 	}
@@ -303,7 +303,7 @@ func MapFromOrderState(in *investapi.OrderState) *domain.OrderState {
 }
 
 func MapFromOrderStages(in []*investapi.OrderStage) []*domain.OrderStage {
-	var ret []*domain.OrderStage
+	ret := make([]*domain.OrderStage, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, MapFromOrderStage(v))
 	}

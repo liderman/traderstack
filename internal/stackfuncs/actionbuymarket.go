@@ -29,7 +29,7 @@ func (a *ActionBuyMarket) Name() string {
 }
 
 func (a *ActionBuyMarket) BaseType() string {
-	return "boolean"
+	return engine.BaseTypeBoolean
 }
 
 func (a *ActionBuyMarket) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {

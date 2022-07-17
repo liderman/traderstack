@@ -9,7 +9,7 @@ type InfoToProtobufMapper struct {
 }
 
 func (t *InfoToProtobufMapper) MapInstruments(in []*domain.Share) []*infov1.Instrument {
-	var ret []*infov1.Instrument
+	ret := make([]*infov1.Instrument, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, t.MapInstrument(v))
 	}
@@ -33,7 +33,7 @@ func (t *InfoToProtobufMapper) MapInstrument(in *domain.Share) *infov1.Instrumen
 }
 
 func (t *InfoToProtobufMapper) MapMoneys(in []*domain.MoneyValue) []*infov1.Money {
-	var ret []*infov1.Money
+	ret := make([]*infov1.Money, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, t.MapMoney(v))
 	}
@@ -48,7 +48,7 @@ func (t *InfoToProtobufMapper) MapMoney(in *domain.MoneyValue) *infov1.Money {
 }
 
 func (t *InfoToProtobufMapper) MapAccounts(in []*domain.Account) []*infov1.Account {
-	var ret []*infov1.Account
+	ret := make([]*infov1.Account, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, &infov1.Account{
 			Id:   v.Id,

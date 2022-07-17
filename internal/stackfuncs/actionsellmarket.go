@@ -33,7 +33,7 @@ func (a *ActionSellMarket) Name() string {
 }
 
 func (a *ActionSellMarket) BaseType() string {
-	return "boolean"
+	return engine.BaseTypeBoolean
 }
 
 func (a *ActionSellMarket) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {
@@ -75,7 +75,7 @@ func (a *ActionSellMarket) Run(options *engine.Options, now time.Time, accountId
 	}
 	resp, err := fnc(figi, lots, lastPrice.Price, domain.OrderDirectionSell, accountId, domain.OrderTypeMarket)
 	if err != nil {
-		return nil, fmt.Errorf("ошибка создания заказа: %s", err)
+		return nil, fmt.Errorf("ошибка создания заказа: %w", err)
 	}
 
 	fmt.Printf("!!! Sell %s with %d lots and price %s\n", resp.Figi, resp.LotsRequested, lastPrice.Price.String())

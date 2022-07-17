@@ -33,7 +33,7 @@ func (a *ActionTakeProfit) Name() string {
 }
 
 func (a *ActionTakeProfit) BaseType() string {
-	return "boolean"
+	return engine.BaseTypeBoolean
 }
 
 func (a *ActionTakeProfit) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {
@@ -82,7 +82,7 @@ func (a *ActionTakeProfit) Run(options *engine.Options, now time.Time, accountId
 		domain.OrderTypeMarket,
 	)
 	if err != nil {
-		return nil, fmt.Errorf("ошибка создания заказа: %s", err)
+		return nil, fmt.Errorf("ошибка создания заказа: %w", err)
 	}
 
 	fmt.Printf("!!! TakeProfit %s with %d lots and price %s\n", resp.Figi, resp.LotsRequested, inPortfolio.CurrentPrice.Value.String())
@@ -125,7 +125,7 @@ func (a *ActionTakeProfit) getPortfolioLots(instrument *domain.Share, accountId 
 	}
 	portfolio, err := fnc(accountId)
 	if err != nil {
-		return nil, fmt.Errorf("ошибка получения портфеля: %s", err)
+		return nil, fmt.Errorf("ошибка получения портфеля: %w", err)
 	}
 
 	for _, v := range portfolio {

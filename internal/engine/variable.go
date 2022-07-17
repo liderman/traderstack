@@ -18,6 +18,7 @@ type SetArgument struct {
 const (
 	BaseTypeString  = "string"
 	BaseTypeInteger = "integer"
+	BaseTypeBoolean = "boolean"
 	BaseTypeDecimal = "decimal"
 	BaseTypeTime    = "time"
 	BaseTypeNumeric = "numeric"
@@ -29,27 +30,22 @@ func (a *Argument) CheckInputBaseType(inputBaseType string) bool {
 		if inputBaseType == BaseTypeNumeric || inputBaseType == BaseTypeInteger || inputBaseType == BaseTypeDecimal {
 			return true
 		}
-		break
 	case BaseTypeString:
 		if inputBaseType == BaseTypeString {
 			return true
 		}
-		break
 	case BaseTypeInteger:
 		if inputBaseType == BaseTypeInteger {
 			return true
 		}
-		break
 	case BaseTypeDecimal:
 		if inputBaseType == BaseTypeDecimal {
 			return true
 		}
-		break
 	case BaseTypeTime:
 		if inputBaseType == BaseTypeTime {
 			return true
 		}
-		break
 	}
 
 	return false

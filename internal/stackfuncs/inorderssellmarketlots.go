@@ -23,7 +23,7 @@ func (a *InOrdersSellMarketLots) Name() string {
 }
 
 func (a *InOrdersSellMarketLots) BaseType() string {
-	return "integer"
+	return engine.BaseTypeInteger
 }
 
 func (a *InOrdersSellMarketLots) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {
@@ -38,7 +38,7 @@ func (a *InOrdersSellMarketLots) Run(options *engine.Options, now time.Time, acc
 	}
 	orders, err := fnc(accountId)
 	if err != nil {
-		return nil, fmt.Errorf("ошибка получения списка заказов: %s", err)
+		return nil, fmt.Errorf("ошибка получения списка заказов: %w", err)
 	}
 
 	lots := int64(0)

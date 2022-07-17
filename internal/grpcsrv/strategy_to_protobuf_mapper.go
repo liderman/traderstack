@@ -35,7 +35,7 @@ func (t *StrategyToProtobufMapper) MapLog(in *domain.StrategyLog) *strategyv1.St
 }
 
 func (t *StrategyToProtobufMapper) MapStrategies(in []*domain.Strategy) []*strategyv1.Strategy {
-	var ret []*strategyv1.Strategy
+	ret := make([]*strategyv1.Strategy, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, t.MapStrategy(v))
 	}
@@ -44,7 +44,7 @@ func (t *StrategyToProtobufMapper) MapStrategies(in []*domain.Strategy) []*strat
 }
 
 func (t *StrategyToProtobufMapper) MapLogs(in []*domain.StrategyLog) []*strategyv1.StrategyLog {
-	var ret []*strategyv1.StrategyLog
+	ret := make([]*strategyv1.StrategyLog, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, t.MapLog(v))
 	}
