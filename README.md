@@ -103,6 +103,17 @@
 ### Условия
 * `>=(left numeric, right numeric) -> boolean` - условие, что left >= right
 * `<=(left numeric, right numeric) -> boolean` - условие, что left <= right
+* `==(left numeric, right numeric) -> boolean` - условие, что left равно right
+* `!=(left numeric, right numeric) -> boolean` - условие, что left НЕ равно right
+
+### Математические
+* `-(left numeric, right numeric) -> numeric` - вычитание: left - right
+* `+(left numeric, right numeric) -> numeric` - сложение: left + right
+* `*(left numeric, right numeric) -> numeric` - умножение: left * right
+* `/(left numeric, right numeric) -> numeric` - деление: left / right
+* `abs(value numeric) -> numeric` - абсолютное число без знака
+* `mod(value numeric) -> numeric` - остаток от деления двух заданных значений
+* `round(value numeric, places integer) -> numeric` - округление до целого с заданной точностью
 
 ## Технологии
 * backend - golang 1.18 (взаимодействует с брокером и предоставляет API управления стратегиями для frontend)

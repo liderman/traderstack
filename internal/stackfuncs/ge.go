@@ -17,7 +17,7 @@ func (g *Ge) Name() string {
 }
 
 func (g *Ge) BaseType() string {
-	return "boolean"
+	return engine.BaseTypeBoolean
 }
 
 func (g *Ge) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {

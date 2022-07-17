@@ -5,22 +5,22 @@ import (
 	"time"
 )
 
-type Le struct {
+type Ne struct {
 }
 
-func NewLe() *Le {
-	return &Le{}
+func NewNe() *Ne {
+	return &Ne{}
 }
 
-func (l *Le) Name() string {
-	return "<="
+func (l *Ne) Name() string {
+	return "!="
 }
 
-func (l *Le) BaseType() string {
+func (l *Ne) BaseType() string {
 	return engine.BaseTypeBoolean
 }
 
-func (l *Le) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {
+func (l *Ne) Run(options *engine.Options, now time.Time, accountId string, isTest bool) (interface{}, error) {
 	a, err := options.GetNumericDecimal("a")
 	if err != nil {
 		return nil, err
@@ -30,10 +30,10 @@ func (l *Le) Run(options *engine.Options, now time.Time, accountId string, isTes
 		return nil, err
 	}
 
-	return a.LessThanOrEqual(*b), nil
+	return !a.Equal(*b), nil
 }
 
-func (l *Le) Arguments() []*engine.Argument {
+func (l *Ne) Arguments() []*engine.Argument {
 	return []*engine.Argument{
 		{
 			Id:           "a",
