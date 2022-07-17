@@ -13,7 +13,7 @@ type ToProtobufMapper struct {
 }
 
 func (t *ToProtobufMapper) MapStacks(in []*engine.Stack) []*stackv1.Stack {
-	var ret []*stackv1.Stack
+	ret := make([]*stackv1.Stack, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, t.MapStack(v))
 	}
@@ -57,7 +57,7 @@ func (t *ToProtobufMapper) MapStackFunc(in *engine.StackFunc) *stackv1.StackFunc
 }
 
 func (t *ToProtobufMapper) MapArguments(in []*engine.Argument) []*stackv1.Argument {
-	var ret []*stackv1.Argument
+	ret := make([]*stackv1.Argument, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, t.MapArgument(v))
 	}
@@ -138,7 +138,7 @@ func (t *ToProtobufMapper) MapVariable(in *baseoption.Variable) *stackv1.Variabl
 }
 
 func (t *ToProtobufMapper) MapFuncs(in []*engine.StackFunc) []*stackv1.StackFunc {
-	var ret []*stackv1.StackFunc
+	ret := make([]*stackv1.StackFunc, 0, len(in))
 
 	for _, v := range in {
 		ret = append(ret, t.MapStackFunc(v))
@@ -148,7 +148,7 @@ func (t *ToProtobufMapper) MapFuncs(in []*engine.StackFunc) []*stackv1.StackFunc
 }
 
 func (t *ToProtobufMapper) MapTestItemResults(in []*engine.TestItemResult) []*stackv1.TestItemResult {
-	var ret []*stackv1.TestItemResult
+	ret := make([]*stackv1.TestItemResult, 0, len(in))
 
 	for _, v := range in {
 		ret = append(ret, t.MapTestItemResult(v))

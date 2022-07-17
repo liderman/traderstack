@@ -32,7 +32,7 @@ func (t *TestStack) Test(stackId string, now time.Time, accountId string) ([]*Te
 	}
 
 	varIdx := map[string]interface{}{}
-	var ret []*TestItemResult
+	ret := make([]*TestItemResult, 0, len(stack.Items))
 	for _, v := range stack.Items {
 		res := t.testItem(v, varIdx, now, accountId)
 		if res.Error == "" {

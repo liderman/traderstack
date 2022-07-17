@@ -11,7 +11,7 @@ type ToDomainMapper struct {
 }
 
 func (t *ToDomainMapper) MapSetItems(in []*stackv1.SetItem) []*engine.SetStackItem {
-	var ret []*engine.SetStackItem
+	ret := make([]*engine.SetStackItem, 0, len(in))
 	for _, v := range in {
 		ret = append(ret, t.MapSetItem(v))
 	}

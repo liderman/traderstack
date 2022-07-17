@@ -87,7 +87,7 @@ func (s *StrategyEngine) GetLogs(id string) []*domain.StrategyLog {
 }
 
 func (s *StrategyEngine) GetAll() []*domain.Strategy {
-	var ret []*domain.Strategy
+	ret := make([]*domain.Strategy, 0, len(s.data))
 	for _, v := range s.data {
 		ret = append(ret, v.Strategy)
 	}
@@ -120,7 +120,7 @@ func (s *StrategyEngine) Delete(id string) {
 }
 
 func (s *StrategyEngine) Run() {
-	for true {
+	for {
 		s.runStrategies(time.Now())
 		time.Sleep(time.Second)
 	}

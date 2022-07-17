@@ -37,7 +37,7 @@ func (a *PortfolioLots) Run(options *engine.Options, now time.Time, accountId st
 	}
 	portfolio, err := fnc(accountId)
 	if err != nil {
-		return nil, fmt.Errorf("ошибка получения портфеля: %s", err)
+		return nil, fmt.Errorf("ошибка получения портфеля: %w", err)
 	}
 
 	for _, v := range portfolio {

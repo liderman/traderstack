@@ -67,7 +67,7 @@ func (s *StackManager) Get(id string) *Stack {
 func (s *StackManager) GetAll() []*Stack {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	var ret []*Stack
+	ret := make([]*Stack, 0, len(s.data))
 	for _, v := range s.data {
 		ret = append(ret, v)
 	}

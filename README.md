@@ -169,6 +169,7 @@ go test -v -race ./...
 ## CONTRIBUTE
 * write code
 * run `go fmt ./...`
+* run `docker run --rm -v $(pwd):/app -w /app golangci/golangci-lint:v1.46.2 golangci-lint run -v`
 * run all linters and tests (see above)
 * create a PR describing the changes
 
